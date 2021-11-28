@@ -7,11 +7,18 @@
 > ``
 > javac *.java
 > ``  
-> To run, at same location use:  
+> 
+> To run, at same location, use:  
 > ``
 > java *.class
 > ``  
 >  
->Compiling is only before the first run.
+> Compiling is only necessery before the first run.
 >
-> P.S. For easier run, you can make a .bat file containing run command if you are using Windows. Learn how [Here](https://www.windowscentral.com/how-create-and-run-batch-file-windows-10)
+> P.S. For easier run, you can make a .bat file if you are using Windows.  
+> To do this, create a text file in *"src\\textEditor"* containing the following text:  
+> ``
+> java *.class
+> ``  
+> Then save file, and change extension to *".bat"*. File ***MUST*** be in *"src\\textEditor"* folder.  
+> If you would like it in another folder, create a shortcut, then  double click file or shurtcut to run.
