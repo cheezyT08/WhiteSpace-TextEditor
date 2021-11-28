@@ -13,3 +13,5 @@
 > ``  
 >  
 >Compiling is only before the first run.
+>
+> P.S. For easier run, you can make a .bat file containing run command if you are using Windows. Learn how [Here](https://www.windowscentral.com/how-create-and-run-batch-file-windows-10)
