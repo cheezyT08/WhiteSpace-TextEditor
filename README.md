@@ -5,7 +5,7 @@
 > To download, press green code button on main page, and then **Download ZIP**.  
 > Extract folder, then head to *src\\textEditor*, and run using following command:  
 > ``
-> java *.class
+> java TEMain.java
 > ``  
 >  
 > P.S. For easier run, you can make a .bat file if you are using Windows.  
