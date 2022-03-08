@@ -5,10 +5,10 @@ package textEditor;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.Scanner;
 public class MainTE {
 	private static boolean saved = true;
 	
@@ -19,8 +19,18 @@ public class MainTE {
 	        ex.printStackTrace();
 	    }
 		
-		@SuppressWarnings("unused")
 		Window w = new Window();
+		if(args.length > 0 ) {
+			if(!(args[0].equals(null)) && !(args[0].equals(""))) {
+				System.out.println(args[0]);
+				File f = new File(args[0]);
+				if(!f.exists()) {
+					JOptionPane.showMessageDialog(null, "Unable to find file: "+args[0], "Error", 0);
+				} else {
+					w.setText(w.readFile(f));
+				}
+			}
+		}
 	}
 
 	
@@ -137,34 +147,48 @@ public class MainTE {
 			return mb;
 		}
 		
-		public String readFromFile() {
+		public void setText(String str) {
+			ta.setText(str);
+		}
+		
+		public String openFile() {
 			JFileChooser fc;
 			File f;
-			Scanner fScan = null;
-			String fStr = "";
 			fc = new JFileChooser();
 			fc.showDialog(null, "Open");
 			f = fc.getSelectedFile();
-				
+			saved = true;
+			
+			if(!f.exists()) {
+				JOptionPane.showMessageDialog(null, "File "+f.getName()+" does not exist", "Error", 0);
+				return "";
+			}
+			
+			return readFile(f);
+		}
+		
+		public String readFile(File f) {
+			FileInputStream in = null;
+			String rv = "";
+			
 			try {
-				fScan = new Scanner(f);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if(!f.equals(null)) {
-				try {
-					fileLocation = f.getAbsolutePath();
-					while(fScan.hasNextLine()) {
-						fStr += fScan.nextLine();
-					}
-				} catch(NullPointerException e) {}
-			}
-			try {
-				fScan.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return fStr;
+	            in = new FileInputStream(f);
+	            int c;
+
+	            while ((c = in.read()) != -1) {
+	                rv += ((char) c)+"";
+	            }
+	        } catch (IOException e) {
+	        	
+	        } finally {
+	            if (in != null) {
+	                try {
+						in.close();
+					} catch (IOException e) {}
+	            }
+	        }
+			
+			return rv;
 		}
 		
 		public void saveAsToFile(String s) {
@@ -322,12 +346,12 @@ public class MainTE {
 		private class OpenLstnr implements ActionListener {
 
 			public void actionPerformed(ActionEvent e) {
-				String fStr = readFromFile();
+				String fStr = openFile();
 				if(ta.getText().equals("") || ta.getText().equals(fStr)) {
-					ta.setText(fStr);
+					setText(fStr);
 				} else {
 					if(JOptionPane.showConfirmDialog(null, "This will overwrite current contents of text editor.\nAre you sure you want to continue", "Open File", 0) == JOptionPane.OK_OPTION) {
-						ta.setText(readFromFile());
+						setText(openFile());
 					}
 				}
 				
