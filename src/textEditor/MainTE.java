@@ -52,7 +52,7 @@ public class MainTE {
 			
 			setIconImage(new ImageIcon("images\\spaceBarIcon.png").getImage());
 			setSize(600, 470);
-			setTitle("WhiteSpace Text Editor");
+			setTitle("WiteSpace Text Editor");
 			setDefaultCloseOperation(0);
 			addWindowListener(new WindowAdapter() {
 			    public void windowClosing(WindowEvent e) {
